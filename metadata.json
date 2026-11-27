@@ -1,0 +1,6 @@
+{
+  "name": "BusWatch SG",
+  "description": "Real-time Singapore bus arrival tracker with instant 5-digit bus stop code lookup and saved favorites.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

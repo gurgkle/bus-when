@@ -11,7 +11,7 @@ import { BusStopArrivalResponse } from './types/bus';
 
 type ActiveTab = 'arrivals' | 'favorites' | 'directory' | 'api';
 
-const AUTO_REFRESH_SECONDS = 30;
+const AUTO_REFRESH_SECONDS = 20;
 const DEFAULT_STOP_CODE = '09047';
 
 export default function App() {
@@ -90,12 +90,16 @@ export default function App() {
 
   const handleToggleFavoriteByCode = useCallback(
     (code: string) => {
-      const stop = getBusStopByCode(code);
-      if (stop) {
-        toggleFavorite(stop);
-      }
+      const stop = getBusStopByCode(code) ?? {
+        BusStopCode: code,
+        Description: `Bus Stop ${code}`,
+        RoadName: 'Singapore',
+        District: 'LTA Live',
+        Services: arrivalData?.BusStopCode === code ? arrivalData.Services.map((s) => s.ServiceNo) : [],
+      };
+      toggleFavorite(stop);
     },
-    [toggleFavorite]
+    [toggleFavorite, arrivalData]
   );
 
   const handleFocusSearch = () => {

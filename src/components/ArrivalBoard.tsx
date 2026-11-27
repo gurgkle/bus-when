@@ -195,6 +195,14 @@ export const ArrivalBoard: React.FC<ArrivalBoardProps> = ({
               </span>
               <span aria-hidden="true">·</span>
               <span>Auto-refresh in {secondsToRefresh}s</span>
+              {arrivalData && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span className={arrivalData.isSimulated ? 'text-amber-700' : 'text-emerald-700 font-medium'}>
+                    {arrivalData.isSimulated ? 'Preview mode (set LTA_ACCOUNT_KEY)' : 'Live LTA v3'}
+                  </span>
+                </>
+              )}
             </div>
           </div>
 
@@ -220,8 +228,8 @@ export const ArrivalBoard: React.FC<ArrivalBoardProps> = ({
             <button
               type="button"
               onClick={onToggleFavorite}
-              disabled={!stopInfo}
-              className={`min-h-[44px] px-4 py-2 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+              disabled={!stopInfo && !arrivalData}
+              className={`min-h-[44px] px-4 py-2 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
                 isFavorite
                   ? 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100'
                   : 'bg-white text-slate-800 border border-slate-200 hover:bg-slate-50 hover:border-slate-300'
